@@ -5,5 +5,6 @@ import java.util.List;
 import java.util.Map;
 
 public interface LoginService {
-	public List<Map<String, Object>> getUser() throws SQLException;
+	
+	public Map<String, Object> getUser(Map<String, Object> ParamMap) throws SQLException;
 }

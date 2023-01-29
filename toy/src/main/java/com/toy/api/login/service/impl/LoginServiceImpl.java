@@ -16,8 +16,8 @@ public class LoginServiceImpl implements LoginService {
 	private LoginDAO dao;
 	
 	@Override
-	public List<Map<String, Object>> getUser() throws SQLException {
-		return dao.getUser();
+	public Map<String, Object> getUser(Map<String, Object> paramMap) throws SQLException {
+		return dao.getUser(paramMap);
 	}
 	
 }
