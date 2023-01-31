@@ -65,14 +65,28 @@ public class LoginController {
 		}
 	}
 	
-	@PostMapping(value = "/login")
-	public @ResponseBody Object login(HttpSession session, @RequestBody Map<String, Object> paramMap)
-	{
+	@RequestMapping(path = "/all")
+	public Object apiAll() {
 		try {
-			Map<String, Object> resObj = new HashMap<String, Object>();
-			Map<String, Object> userChk = loginService.getUser(paramMap);
+			return loginService.getUserAll();
 			
-			if(userChk == null) {
+		} catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	@PostMapping(path = "/login", produces = "application/json")
+	public @ResponseBody Object login(@RequestBody Map<String, Object> paramMap)
+	{
+		System.out.println(paramMap);
+		
+		try {
+			
+			Map<String, Object> resObj = new HashMap<String, Object>();
+			Map<String, Object> user = loginService.getUser(paramMap);
+			
+			if(user == null) {
 				resObj.put("code", HttpStatus.NOT_FOUND.value());
 				resObj.put("msg", "이메일 또는 비밀번호를 다시 확인해주세요.");
 				
@@ -82,13 +96,15 @@ public class LoginController {
 			resObj.put("code", HttpStatus.OK.value());
 			resObj.put("msg", "로그인 완료");
 			
-			session.setAttribute("user_info", userChk);
-			session.setMaxInactiveInterval(60*60*24);
+			System.out.println(user);
+			
+//			session.setAttribute("user_info", user);
+//			session.setMaxInactiveInterval(60*60*24);
 			
 			return resObj;
 			
 		} catch (Exception e) {
-			
+			e.printStackTrace();
 			return null;
 		}
 	}

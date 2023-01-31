@@ -17,7 +17,12 @@ public class LoginDAO {
 	
 	@Transactional
 	public Map<String, Object> getUser(Map<String, Object> paramMap) throws SQLException {
-		return sqlSession.selectOne("LoginDAO.getUser");
+		return (Map<String, Object>)sqlSession.selectOne("LoginDAO.getUser", paramMap);
+	}
+	
+	@Transactional
+	public List<Map<String, Object>> getUserAll() throws SQLException {
+		return sqlSession.selectList("LoginDAO.getUserAll");
 	}
 
 }

@@ -20,4 +20,9 @@ public class LoginServiceImpl implements LoginService {
 		return dao.getUser(paramMap);
 	}
 	
+	@Override
+	public List<Map<String, Object>> getUserAll() throws SQLException {
+		return dao.getUserAll();
+	}
+	
 }
